@@ -14,7 +14,7 @@ class ExampleController extends Controller
         //
     }
     public function test(){
-        dd(123);
+        echo 'test';
     }
 
     //
