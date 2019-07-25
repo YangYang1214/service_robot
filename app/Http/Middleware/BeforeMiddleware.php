@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class ExampleMiddleware
+class BeforeMiddleware
 {
     /**
      * Handle an incoming request.
