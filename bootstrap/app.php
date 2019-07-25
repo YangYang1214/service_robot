@@ -102,6 +102,11 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
+$app->configureMonologUsing(function(Monolog\Logger $monolog) use ($app) {
+    return $monolog->pushHandler(
+        new \Monolog\Handler\RotatingFileHandler($app->storagePath().'/logs/lumen.log')
+    );
+});
 
 
 return $app;
