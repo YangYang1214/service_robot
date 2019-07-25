@@ -13,6 +13,9 @@ class ExampleController extends Controller
     {
         //
     }
+    public function test(){
+        dd(123);
+    }
 
     //
 }
