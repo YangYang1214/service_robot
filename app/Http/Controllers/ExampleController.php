@@ -16,7 +16,7 @@ class ExampleController extends Controller
         //
     }
     public function test(){
-        Log::info('test');
+        Log::info('test123');
         echo 'test';
     }
 
