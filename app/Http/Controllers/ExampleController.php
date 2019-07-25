@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 class ExampleController extends Controller
 {
     /**
@@ -14,6 +16,7 @@ class ExampleController extends Controller
         //
     }
     public function test(){
+        Log::info('test');
         echo 'test';
     }
 
