@@ -16,8 +16,8 @@ class ExampleController extends Controller
         //
     }
     public function test(){
-        Log::info('test123');
-        echo 'test';
+
+        return $this->success(['result' => '成功！']);
     }
 
     //
