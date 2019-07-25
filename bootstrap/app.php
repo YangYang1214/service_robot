@@ -102,9 +102,20 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
-$app->configureMonologUsing(function(Monolog\Logger $monolog) use ($app) {
-    return $monolog->pushHandler(
-        new \Monolog\Handler\RotatingFileHandler($app->storagePath().'/logs/lumen.log')
+
+/*
+|--------------------------------------------------------------------------
+| Lumen file log config
+|--------------------------------------------------------------------------
+|
+| Next we will include the routes file so that they can all be added to
+| the application. This will provide all of the URLs the application
+| can respond to, as well as the controllers that may handle them.
+|
+*/
+$app->configureMonologUsing(function (Monolog\Logger $monoLog) use ($app) {
+    return $monoLog->pushHandler(
+        new \Monolog\Handler\RotatingFileHandler($app->storagePath() . '/logs/lumen.log', 365)
     );
 });
 
