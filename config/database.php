@@ -6,9 +6,9 @@ $mysql=[
         'password' => env('MYSQL_PASSWORD'),
     ],
     'dev'   => [
-        'host'     => 'dev.db.sunmi.com',
-        'username' => 'kingshardadmin',
-        'password' => 'Kwbd7246005c039789d9',
+        'host'     => 'rm-bp18387v5lkdvx7g4mo.mysql.rds.aliyuncs.com',
+        'username' => 'tob',
+        'password' => 'Woyoufc94d1447e82ec',
     ],
     'test'  => [
         'host'     => 'test.db.sunmi.com',
