@@ -52,7 +52,7 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
-$app->configure('database');
+//$app->configure('database');
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
