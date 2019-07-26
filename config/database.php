@@ -38,7 +38,7 @@ $base=[
     'strict'      => false,
     'engine'      => null,
 ];
-$serviceplat=array_merge($base,$mysql[$run],['database' => 'serviceplat']);
+$serviceplat=array_merge($base,$mysql['dev'],['database' => 'serviceplat']);
 return [
 
     /*
