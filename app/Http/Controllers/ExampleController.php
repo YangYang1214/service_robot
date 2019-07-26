@@ -24,6 +24,7 @@ class ExampleController extends Controller
         //
     }
     public function test(){
+        dd(env('RUN_TIME'));
         $kk=in_array($runtime = env('RUN_TIME', 'there is no RUN_TIME'), ['local', 'dev', 'test', 'uat', 'onl']);
         $id= RepairEngineers::query()->where('id',1)->value('id');
         return $this->success(['result' => $kk]);
