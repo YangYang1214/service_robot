@@ -1,5 +1,43 @@
 <?php
-
+$mysql=[
+    'local' => [
+        'host'     => env('MYSQL_HOST'),
+        'username' => env('MYSQL_USER'),
+        'password' => env('MYSQL_PASSWORD'),
+    ],
+    'dev'   => [
+        'host'     => 'dev.db.sunmi.com',
+        'username' => 'kingshardadmin',
+        'password' => 'Kwbd7246005c039789d9',
+    ],
+    'test'  => [
+        'host'     => 'test.db.sunmi.com',
+        'username' => 'kingshardadmin',
+        'password' => 'Kwbd7246005c039789d9',
+    ],
+    'uat'   => [
+        'host'     => 'uat.db.sunmi.com',
+        'username' => 'kingshardadmin',
+        'password' => 'Kwbd7246005c039789d9',
+    ],
+    'onl'   => [
+        'host'     => 'kingshard.server.sunmi.com',
+        'username' => 'adminkingshard',
+        'password' => 'king87fcb63e80255801d0',
+    ]
+];
+$base=[
+    'driver'      => 'mysql',
+    //'database'    => 'serviceplat',
+    'port'        => '3306',
+    'unix_socket' => env('DB_SOCKET', ''),
+    'charset'     => 'utf8mb4',
+    'collation'   => 'utf8mb4_unicode_ci',
+    'prefix'      => '',
+    'strict'      => false,
+    'engine'      => null,
+];
+$serviceplat=array_merge($base,$mysql['dev'],['database' => 'serviceplat']);
 return [
 
     /*
@@ -44,6 +82,7 @@ return [
     |
     */
 
+
     'connections' => [
 
         'testing' => [
@@ -57,22 +96,7 @@ return [
             'prefix'   => env('DB_PREFIX', ''),
         ],
 
-        'serviceplat' => [
-            'driver'    => 'mysql',
-            'host'      => env('DB_HOST'),
-            'port'      => env('DB_PORT'),
-            'database'  => env('DB_DATABASE'),
-            'username'  => env('DB_USERNAME'),
-            'password'  => env('DB_PASSWORD'),
-            'charset'   => env('DB_CHARSET', 'utf8'),
-            'collation' => env('DB_COLLATION', 'utf8_unicode_ci'),
-            'prefix'    => env('DB_PREFIX', ''),
-            'timezone'  => env('DB_TIMEZONE', '+00:00'),
-            'strict'    => env('DB_STRICT_MODE', false),
-        ],
-
-
-
+        'serviceplat' => $serviceplat,
         'sqlsrv' => [
             'driver'   => 'sqlsrv',
             'host'     => env('DB_HOST', 'localhost'),
