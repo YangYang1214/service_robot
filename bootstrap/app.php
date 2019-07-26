@@ -23,9 +23,13 @@ try {
 |
 */
 
+//$app = new Laravel\Lumen\Application(
+//    dirname(__DIR__)
+//);
 $app = new Laravel\Lumen\Application(
-    dirname(__DIR__)
+    realpath(__DIR__ . '/../')
 );
+
 
  $app->withFacades();
 
