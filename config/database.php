@@ -1,4 +1,5 @@
 <?php
+$run = in_array($runtime = env('RUN_TIME', 'there is no RUN_TIME'), ['local', 'dev', 'test', 'uat', 'onl']);
 $mysql=[
     'local' => [
         'host'     => env('MYSQL_HOST'),
@@ -37,7 +38,7 @@ $base=[
     'strict'      => false,
     'engine'      => null,
 ];
-$serviceplat=array_merge($base,$mysql['dev'],['database' => 'serviceplat']);
+$serviceplat=array_merge($base,$mysql[$run],['database' => 'serviceplat']);
 return [
 
     /*
