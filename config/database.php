@@ -2,7 +2,8 @@
 if (!in_array($runtime = env('RUN_TIME', 'there is no RUN_TIME'), ['local', 'dev', 'test', 'uat', 'onl'])) {
     return [];
 }
-//$runtime = 'test';
+dd($runtime);
+$runtime = 'dev';
 
 $mysqlCommon = [
     'driver'      => 'mysql',
