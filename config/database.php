@@ -1,263 +1,20 @@
 <?php
-if (!in_array($runtime = env('RUN_TIME', 'there is no RUN_TIME'), ['local', 'dev', 'test', 'uat', 'onl'])) {
-    return [];
-}
-dd($runtime);
-$runtime = 'dev';
-
-$mysqlCommon = [
-    'driver'      => 'mysql',
-    //'database'    => 'serviceplat',
-    'port'        => '3306',
-    'unix_socket' => env('DB_SOCKET', ''),
-    'charset'     => 'utf8mb4',
-    'collation'   => 'utf8mb4_unicode_ci',
-    'prefix'      => '',
-    'strict'      => false,
-    'engine'      => null,
-];
-
-$mysql       = [
-    'local' => [
-        'host'     => env('MYSQL_HOST'),
-        'username' => env('MYSQL_USER'),
-        'password' => env('MYSQL_PASSWORD'),
-    ],
-    'dev'   => [
-        'host'     => 'dev.db.sunmi.com',
-        'username' => 'kingshardadmin',
-        'password' => 'Kwbd7246005c039789d9',
-    ],
-    'test'  => [
-        'host'     => 'test.db.sunmi.com',
-        'username' => 'kingshardadmin',
-        'password' => 'Kwbd7246005c039789d9',
-    ],
-    'uat'   => [
-        'host'     => 'uat.db.sunmi.com',
-        'username' => 'kingshardadmin',
-        'password' => 'Kwbd7246005c039789d9',
-    ],
-    'onl'   => [
-        'host'     => 'kingshard.server.sunmi.com',
-        'username' => 'adminkingshard',
-        'password' => 'king87fcb63e80255801d0',
-    ],
-];
-
-$serviceplat = array_merge($mysqlCommon, $mysql[$runtime], ['database' => 'serviceplat']);
-$misun       = array_merge($mysqlCommon, $mysql[$runtime], ['database' => 'misun']);
-$locationtools    = array_merge($mysqlCommon, $mysql[$runtime], ['database' => 'locationtools']);
-$manage      = array_merge($mysqlCommon, $mysql[$runtime], ['database' => 'manage']);
-$partners    = array_merge($mysqlCommon, $mysql[$runtime], ['database' => 'partners']);
-$ota         = array_merge($mysqlCommon, $mysql[$runtime], ['database' => 'ota']);
-
-//merchant库单独迁出 db主机地址改了
-if ($runtime == 'uat')
-{
-    $merchant    = array_merge($mysqlCommon,array_merge($mysql[$runtime], ['host' => 'uat.merchant.sunmi.com']), ['database' => 'merchant']);
-}
-else if ($runtime == 'onl')
-{
-    $merchant    = array_merge($mysqlCommon,array_merge($mysql[$runtime], ['host' => 'merchant.db.sunmi.com']), ['database' => 'merchant']);
-}
-else
-{
-    $merchant    = array_merge($mysqlCommon,$mysql[$runtime], ['database' => 'merchant']);
-}
-
-$other = array_merge($mysqlCommon, $mysql[$runtime], ['database' => 'other']);
-$repairManage = array_merge($mysqlCommon, $mysql[$runtime], ['database' => 'repair_manage']);
-
-
-
-## redis
-$redis = [
-    'local' => [
-        'client' => 'predis',
-
-        'default' => [
-            'host' => 'test.redis.sunmi.com',
-            'password' => md5('testsunmiredis666'),
-            'port' => 31379,
-            'database' => 24,
-        ],
-
-        'phone_code' => [
-            'host' => 'test.redis.sunmi.com',
-            'password' => md5('testsunmiredis666'),
-            'port' => 31379,
-            'database' => 3,
-        ],
-    ],
-
-    'dev' => [
-        'client' => 'phpredis',
-
-        'default' => [
-            'host' => 'dev.redis.sunmi.com',
-            'password' => md5('devsunmiredis666'),
-            'port' => 31379,
-            'database' => 24,
-        ],
-
-        'phone_code' => [
-            'host' => 'dev.redis.sunmi.com',
-            'password' => md5('devsunmiredis666'),
-            'port' => 31379,
-            'database' => 3,
-        ],
-
-        //合作伙伴平台相关redis配置
-        'partner_admin' => [
-            'host' => 'dev.redis.sunmi.com',
-            'password' => md5('devsunmiredis666'),
-            'port' => 31379,
-            'database' => 24,
-        ],
-
-        'partner_developers_login' => [
-            'host' => 'dev.redis.sunmi.com',
-            'password' => md5('devsunmiredis666'),
-            'port' => 31379,
-            'database' => 2,
-        ],
-
-        'partner_developers_only' => [
-            'host' => 'dev.redis.sunmi.com',
-            'password' => md5('devsunmiredis666'),
-            'port' => 31379,
-            'database' => 1,
-        ],
-    ],
-
-    'test' => [
-        'client' => 'phpredis',
-
-        'default' => [
-            'host' => 'test.redis.sunmi.com',
-            'password' => md5('testsunmiredis666'),
-            'port' => 31379,
-            'database' => 24,
-        ],
-
-        'phone_code' => [
-            'host' => 'test.redis.sunmi.com',
-            'password' => md5('testsunmiredis666'),
-            'port' => 31379,
-            'database' => 3,
-        ],
-
-        //合作伙伴平台相关redis配置
-        'partner_admin' => [
-            'host' => 'test.redis.sunmi.com',
-            'password' => md5('testsunmiredis666'),
-            'port' => 31379,
-            'database' => 24,
-        ],
-
-        'partner_developers_login' => [
-            'host' => 'test.redis.sunmi.com',
-            'password' => md5('testsunmiredis666'),
-            'port' => 31379,
-            'database' => 2,
-        ],
-
-        'partner_developers_only' => [
-            'host' => 'test.redis.sunmi.com',
-            'password' => md5('testsunmiredis666'),
-            'port' => 31379,
-            'database' => 1,
-        ],
-    ],
-
-
-    'uat' => [
-        'client' => 'phpredis',
-
-        'default' => [
-            'host' => 'r-bp1ca9057fcfe174.redis.rds.aliyuncs.com',
-            'password' => 'qP4OFxigFSSDuSGfUCfM5H3B226Of8',
-            'port' => 6379,
-            'database' => 24,
-        ],
-
-        'phone_code' => [
-            'host' => 'r-bp1ca9057fcfe174.redis.rds.aliyuncs.com',
-            'password' => 'qP4OFxigFSSDuSGfUCfM5H3B226Of8',
-            'port' => 6379,
-            'database' => 3,
-        ],
-
-        //合作伙伴平台相关redis配置
-        'partner_admin' => [
-            'host' => 'r-bp1ca9057fcfe174.redis.rds.aliyuncs.com',
-            'password' => 'qP4OFxigFSSDuSGfUCfM5H3B226Of8',
-            'port' => 6379,
-            'database' => 24,
-        ],
-
-        'partner_developers_login' => [
-            'host' => 'r-bp1ca9057fcfe174.redis.rds.aliyuncs.com',
-            'password' => 'qP4OFxigFSSDuSGfUCfM5H3B226Of8',
-            'port' => 6379,
-            'database' => 2,
-        ],
-
-        'partner_developers_only' => [
-            'host' => 'r-bp1ca9057fcfe174.redis.rds.aliyuncs.com',
-            'password' => 'qP4OFxigFSSDuSGfUCfM5H3B226Of8',
-            'port' => 6379,
-            'database' => 1,
-        ],
-    ],
-
-
-    'onl' => [
-        'client' => 'phpredis',
-
-        'default' => [
-            'host' => 'r-bp1a1b62cf6e7ad4.redis.rds.aliyuncs.com',
-            'password' => 'Df29a00463943b0cc50790226f03',
-            'port' => 6379,
-            'database' => 24,
-        ],
-
-        'phone_code' => [
-            'host' => 'r-bp1a1b62cf6e7ad4.redis.rds.aliyuncs.com',
-            'password' => 'Df29a00463943b0cc50790226f03',
-            'port' => 6379,
-            'database' => 3,
-        ],
-
-        //合作伙伴平台相关redis配置
-        'partner_admin' => [
-            'host' => 'r-bp1a1b62cf6e7ad4.redis.rds.aliyuncs.com',
-            'password' => 'Df29a00463943b0cc50790226f03',
-            'port' => 6379,
-            'database' => 24,
-        ],
-
-        'partner_developers_login' => [
-            'host' => 'r-bp1a1b62cf6e7ad4.redis.rds.aliyuncs.com',
-            'password' => 'Df29a00463943b0cc50790226f03',
-            'port' => 6379,
-            'database' => 2,
-        ],
-
-        'partner_developers_only' => [
-            'host' => 'r-bp1a1b62cf6e7ad4.redis.rds.aliyuncs.com',
-            'password' => 'Df29a00463943b0cc50790226f03',
-            'port' => 6379,
-            'database' => 1,
-        ],
-
-    ],
-];
-
-
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | PDO Fetch Style
+    |--------------------------------------------------------------------------
+    |
+    | By default, database results will be returned as instances of the PHP
+    | stdClass object; however, you may desire to retrieve records in an
+    | array format for simplicity. Here you can tweak the fetch style.
+    |
+    */
+
+    'fetch' => PDO::FETCH_CLASS,
+
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -268,7 +25,8 @@ return [
     | you may use many connections at once using the Database library.
     |
     */
-    'default'     => env('DB_CONNECTION', 'serviceplat'),
+
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -285,17 +43,56 @@ return [
     | choice installed on your machine before you begin development.
     |
     */
+
     'connections' => [
-        'serviceplat' => $serviceplat, // 默认数据库
-        'misun'       => $misun,
-        'manage'      => $manage,
-        'mysql' => $serviceplat, // 默认数据库
-        'locationtools' => $locationtools,
-        'partners' => $partners,
-        'ota'      => $ota,
-        'merchant' => $merchant,
-        'other' => $other,
-        'repair_manage' => $repairManage,
+
+        'testing' => [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+        ],
+
+        'sqlite' => [
+            'driver'   => 'sqlite',
+            'database' => env('DB_DATABASE', base_path('database/database.sqlite')),
+            'prefix'   => env('DB_PREFIX', ''),
+        ],
+
+        'mysql' => [
+            'driver'    => 'mysql',
+            'host'      => env('DB_HOST'),
+            'port'      => env('DB_PORT'),
+            'database'  => env('DB_DATABASE'),
+            'username'  => env('DB_USERNAME'),
+            'password'  => env('DB_PASSWORD'),
+            'charset'   => env('DB_CHARSET', 'utf8'),
+            'collation' => env('DB_COLLATION', 'utf8_unicode_ci'),
+            'prefix'    => env('DB_PREFIX', ''),
+            'timezone'  => env('DB_TIMEZONE', '+00:00'),
+            'strict'    => env('DB_STRICT_MODE', false),
+        ],
+
+        'pgsql' => [
+            'driver'   => 'pgsql',
+            'host'     => env('DB_HOST', 'localhost'),
+            'port'     => env('DB_PORT', 5432),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset'  => env('DB_CHARSET', 'utf8'),
+            'prefix'   => env('DB_PREFIX', ''),
+            'schema'   => env('DB_SCHEMA', 'public'),
+        ],
+
+        'sqlsrv' => [
+            'driver'   => 'sqlsrv',
+            'host'     => env('DB_HOST', 'localhost'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset'  => env('DB_CHARSET', 'utf8'),
+            'prefix'   => env('DB_PREFIX', ''),
+        ],
+
     ],
 
     /*
@@ -308,7 +105,8 @@ return [
     | the migrations on disk haven't actually been run in the database.
     |
     */
-    'migrations'  => 'migrations',
+
+    'migrations' => 'migrations',
 
     /*
     |--------------------------------------------------------------------------
@@ -321,5 +119,17 @@ return [
     |
     */
 
-    'redis' => $redis[$runtime],
+    'redis' => [
+
+        'cluster' => env('REDIS_CLUSTER', false),
+
+        'default' => [
+            'host'     => env('REDIS_HOST', '127.0.0.1'),
+            'port'     => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_DATABASE', 0),
+            'password' => env('REDIS_PASSWORD', null),
+        ],
+
+    ],
+
 ];

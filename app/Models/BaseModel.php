@@ -33,7 +33,7 @@ class BaseModel extends Model
      */
 
 
-    protected $connection = 'serviceplat';
+    protected $connection = 'mysql';
 
     /**
      * 此模型返回的错误信息数组。
